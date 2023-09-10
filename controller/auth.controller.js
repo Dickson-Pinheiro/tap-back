@@ -21,17 +21,28 @@ export const authController = {
         const { user } = req.body;
         const userWithEmail = await db.collection("user").findOne({email: user.email});
         if(!userWithEmail){
-            return res.sendStatus(401);
+            return res.sendStatus(409);
         }
 
         const validPassword = bcrypt.compareSync(user.password, userWithEmail.password);
         if(!validPassword){
-            return res.sendStatus(401)
+            return res.sendStatus(409);
         }
         
         const token = jwt.sign({id: userWithEmail._id}, process.env.SECRET_KEY, {expiresIn: '3h'});
         return res.send({
             token   
         })
+    },
+
+    async verifyToken(req, res){
+        const { token } = req.body;
+        let valid = true;
+        jwt.verify(token, process.env.SECRET_KEY, (err, decoded) => {
+            if(err){
+                valid = false;
+            }
+        })
+        return res.send({valid});
     }
 }

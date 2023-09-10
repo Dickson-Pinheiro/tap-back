@@ -19,6 +19,9 @@ export const notesController = {
         const {id} = req.params;
         const {userId} = req;
         const note = await db.collection("notes").findOne({_id: new ObjectId(id)});
+        if(!note){
+            return res.sendStatus(409);   
+        }
         if(note.userId !== userId){
             return res.sendStatus(403);
         }
@@ -30,8 +33,11 @@ export const notesController = {
         const { note } = req.body;
         const { userId } = req;
         const noteWidhId = await db.collection("notes").findOne({_id: new ObjectId(id)});
+        if(!noteWidhId){
+            return res.sendStatus(409);   
+        }
         if(noteWidhId.userId !== userId){
-            return res.sendStatus(409);
+            return res.sendStatus(403);
         }
         const updatedNote = await db.collection("notes").updateOne({_id: new ObjectId(id)}, {$set: {note: note}});
         return res.send(updatedNote);
@@ -45,7 +51,7 @@ export const notesController = {
             return res.sendStatus(204);   
         }
         if(noteWidhId.userId !== userId){
-            return res.sendStatus(409);
+            return res.sendStatus(403);
         }
         await db.collection("notes").deleteOne({_id: new ObjectId(id)});
         return res.sendStatus(204);
