@@ -14,7 +14,7 @@ export function authenticate(req, res, next){
     if(authParts.length !== 2){
         return res.sendStatus(401);
     }
-    const existError = false;
+    let existError = false;
     const token = authParts[1];
     jwt.verify(token, process.env.SECRET_KEY, (err, decoded) => {
         if(err){
