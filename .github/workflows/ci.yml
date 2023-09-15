@@ -11,7 +11,7 @@ jobs:
             - name: checkout do repositorio
               uses: actions/checkout@v1
             - name: Deploy para meu hosting
-              uses: easingthemes/ssg-deploy@main
+              uses: easingthemes/ssh-deploy@main
               env:
                 SSH_PRIVATE_KEY: ${{secrets.SERVER_SSH_KEY}}
                 ARGS: "-rltgoDzvO --delete"
