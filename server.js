@@ -10,6 +10,6 @@ app.use(cors());
 
 app.use(router);
 
-app.listen(3000, () => {
+app.listen(8080, () => {
     console.log("server is running!");
 })
