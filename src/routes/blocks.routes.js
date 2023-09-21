@@ -7,7 +7,7 @@ const blocksRouter = Router();
 blocksRouter.post("/", authenticate, blocksController.createBlock);
 blocksRouter.get("/:id", authenticate, blocksController.getOne);
 blocksRouter.get("/", authenticate, blocksController.getBlocks);
-blocksRouter.put("/", authenticate, blocksController.updateBlock);
+blocksRouter.put("/:id", authenticate, blocksController.updateBlock);
 blocksRouter.delete("/:id", authenticate, blocksController.remove);
 
 export { blocksRouter }

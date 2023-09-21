@@ -22,7 +22,7 @@ export const blocksController = {
         if(!block){
             return res.sendStatus(409);
         }
-        if(list.userId !== userId){
+        if(block.userId !== userId){
             return res.sendStatus(409)
         }
         return res.send(block)
@@ -37,7 +37,7 @@ export const blocksController = {
         if(!blockWithId){
             return res.sendStatus(409);
         }
-        if(listWithId.userId !== userId){
+        if(blockWithId.userId !== userId){
             return res.sendStatus(409);
         }
         await db.collection("blocks").updateOne({_id: new ObjectId(id)}, {$set: {block: block}});
